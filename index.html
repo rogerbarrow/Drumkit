@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">hihat</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">kick</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">openhat</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">boom</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">ride</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">snare</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">tom</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">tink</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="http://www.dropbox.com/s/o7og85daizlcaem/clap.wav?dl=1"></audio>
+  <audio data-key="83" src="http://www.dropbox.com/s/ocug6873hg3u8j4/hihat.wav?dl=1"></audio>
+  <audio data-key="68" src="http://www.dropbox.com/s/scqp6lm0vp8brmf/kick.wav?dl=1"></audio>
+  <audio data-key="70" src="http://www.dropbox.com/s/y23uid7p9ua6z87/openhat.wav?dl=1" onerror="reloadPage(this)"></audio>
+  <audio data-key="71" src="http://www.dropbox.com/s/56hm7vkhmyc6wdr/boom.wav?dl=1"></audio>
+  <audio data-key="72" src="http://www.dropbox.com/s/wklk8vdpqhu7pds/ride.wav?dl=1"></audio>
+  <audio data-key="74" src="http://www.dropbox.com/s/3rbwyqxzaphf31w/snare.wav?dl=1"></audio>
+  <audio data-key="75" src="http://www.dropbox.com/s/ej876bhfitejp3h/tom.wav?dl=1"></audio>
+  <audio data-key="76" src="http://www.dropbox.com/s/lk2slufka07rpcg/tink.wav?dl=1"></audio>
+
+<script>
+
+function playSound(e) {
+  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+  const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+if(!audio) return;
+audio.currentTime = 0;
+audio.play();
+key.classList.add('playing');
+}
+
+function removeTransition(e) {
+  if(e.propertyName !== 'transform') return;
+  
+this.classList.remove('playing');
+
+}
+const keys = document.querySelectorAll('.key');
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+window.addEventListener('keydown', playSound);
+</script>
+
+</html>
